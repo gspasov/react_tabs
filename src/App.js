@@ -4,23 +4,24 @@ import Content from "./Content";
 import Home from "./Home";
 import Contact from "./Contact";
 import About from "./About";
+import uuid from "uuid";
 
 function App() {
   const allPаges = {
     home: {
-      id: 1,
+      id: null,
       title: "Home",
       selected: true,
       component: Home
     },
     contact: {
-      id: 2,
+      id: null,
       title: "Contact",
       selected: true,
       component: Contact
     },
     about: {
-      id: 3,
+      id: null,
       title: "About",
       selected: true,
       component: About
@@ -46,7 +47,9 @@ function App() {
   };
 
   const addPage = title => {
-    setPages([...unselectAllPages(_pages), allPаges[title]]);
+    const pageToAdd = allPаges[title];
+    pageToAdd.id = uuid.v4();
+    setPages([...unselectAllPages(_pages), pageToAdd]);
   };
 
   const removePage = index => {
