@@ -1,11 +1,6 @@
 import React from "react";
 
-function Page({
-  page: { id, title, selected },
-  index,
-  removePage,
-  selectPage
-}) {
+function Page({ page: { title, selected }, index, removePage, selectPage }) {
   const divStyle = {
     border: "1px solid black",
     background: selected ? "green" : "",
