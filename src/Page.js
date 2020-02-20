@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Page({ page: { title, selected }, index, removePage, selectPage }) {
   const tdStyle = {
@@ -9,11 +8,15 @@ function Page({ page: { title, selected }, index, removePage, selectPage }) {
   const btnStyle = {
     margin: "0px 0px 0px 5px"
   };
+
+  const tabStyle = {
+    cursor: "pointer"
+  };
   return (
     <td style={tdStyle}>
-      <Link to="#" onClick={() => selectPage(index)}>
+      <span style={tabStyle} onClick={() => selectPage(index)}>
         {title}
-      </Link>
+      </span>
       <button style={btnStyle} onClick={() => removePage(index)}>
         X
       </button>

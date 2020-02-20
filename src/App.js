@@ -1,31 +1,32 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
 import Content from "./Content";
+import Home from "./Home";
+import Contact from "./Contact";
+import About from "./About";
 
 function App() {
-  const [_pages, setPages] = useState([
-    {
+  const allPаges = {
+    home: {
       id: 1,
       title: "Home",
-      path: "",
       selected: true,
-      state: ""
+      component: Home
     },
-    {
+    contact: {
       id: 2,
       title: "Contact",
-      path: "contact",
-      selected: false,
-      state: ""
+      selected: true,
+      component: Contact
     },
-    {
+    about: {
       id: 3,
       title: "About",
-      path: "about",
-      selected: false,
-      state: ""
+      selected: true,
+      component: About
     }
-  ]);
+  };
+  const [_pages, setPages] = useState([]);
 
   const unselectAllPages = pages => {
     return pages.map(page => {
@@ -44,28 +45,8 @@ function App() {
     return selectedPages.length !== 0;
   };
 
-  const addPage = (title, path) => {
-    let newId;
-
-    if (_pages.length === 0) {
-      newId = 1;
-    } else {
-      const { id } = _pages[_pages.length - 1];
-      newId = id + 1;
-    }
-
-    const newPages = [
-      ...unselectAllPages(_pages),
-      {
-        id: newId,
-        title: title,
-        path: path,
-        selected: true,
-        state: ""
-      }
-    ];
-
-    setPages(newPages);
+  const addPage = title => {
+    setPages([...unselectAllPages(_pages), allPаges[title]]);
   };
 
   const removePage = index => {
@@ -82,25 +63,13 @@ function App() {
     setPages(changeSelection(newPages, index));
   };
 
-  const changeState = (pageId, newState) => {
-    const newPages = _pages.map(page => {
-      if (page.id === pageId) {
-        return { ...page, state: newState };
-      } else {
-        return page;
-      }
-    });
-
-    setPages(newPages);
-  };
-
   return (
     <div className="App">
-      <button onClick={() => addPage("Home", "")}>Home</button>
-      <button onClick={() => addPage("Contact", "contact")}>Contact</button>
-      <button onClick={() => addPage("About", "about")}>About</button>
+      <button onClick={() => addPage("home")}>Home</button>
+      <button onClick={() => addPage("contact")}>Contact</button>
+      <button onClick={() => addPage("about")}>About</button>
       <NavBar pages={_pages} removePage={removePage} selectPage={selectPage} />
-      <Content pages={_pages} changeState={changeState} />
+      <Content pages={_pages} />
     </div>
   );
 }
